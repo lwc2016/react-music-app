@@ -4,16 +4,13 @@ import { observer, inject } from "mobx-react";
 import MusicItem from "../components/musicItem";
 import styles from './index.less';
 
-
-@observer
-@inject(store => store.music)
-export default class Index extends Component {
-  render() {
-    const { list } = this.props;
-    return (
-      <div>
-          {list.map(item => <MusicItem key={item.id} {...item} />)}
-      </div>
-    )
-  }
+const Index = (props) => {
+  const { list = [] } = props;
+  return (
+    <div>
+        {list.map(item => <MusicItem key={item.id} {...item} />)}
+    </div>
+  )
 }
+
+export default inject(store => store.music)(observer(Index))

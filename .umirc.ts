@@ -3,11 +3,8 @@ export default {
         "@r": "150rem"
     },
     extraBabelPlugins: [
-        ["@babel/plugin-proposal-decorators", {
-            options: {
-                "legacy": true
-            }
-        }],
-        "@babel/plugin-proposal-class-properties"
+        // "@babel/plugin-proposal-decorators",
+        // "@babel/plugin-proposal-class-properties",
+        // "babel-plugin-transform-decorators-legacy"
     ]
 }

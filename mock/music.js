@@ -6,5 +6,14 @@ export default {
             data: musicList,
             message: "success"
         })
+    },
+    "/api/music/detail": (req, res) => {
+        const random = Math.floor((Math.random() * musicList.length));
+        const music = musicList[random]
+        res.send({
+            status: 200,
+            data: music,
+            message: "success"
+        })
     }
 }

@@ -4,6 +4,7 @@ import { Link } from "umi";
 import store from "../store";
 import loadingImg from "../images/loading.gif";
 import styles from "./index.less";
+import Audio from "../components/Audio";
 
 const Initial = () => {
     return (
@@ -26,6 +27,7 @@ const Layout = (props) => {
                     <Link to="/">登录</Link>
                 </div>
             </div>
+            <Audio />
             <div className={styles.wrapper}>{children}</div>
         </div>
         
