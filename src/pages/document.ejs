@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <title>Document</title>
+    <script>
+        (function(window, document){
+            const documentElement = document.documentElement;
+            const eventName = "orientationchange" in window ? "orientationchange" : "resize";
+            function calculateFontSize(){
+                let screenWidth = documentElement.clientWidth * 2;
+                screenWidth = screenWidth > 750 ? 750 : screenWidth;
+                console.log(screenWidth);
+                documentElement.style.fontSize = screenWidth / 10 + "px";
+            }
+            
+            calculateFontSize();
+            window.addEventListener(eventName, calculateFontSize);
+        })(window, document);
+    </script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>

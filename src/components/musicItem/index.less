@@ -1,0 +1,50 @@
+.container{
+    padding: 20/@r 0;
+    display: flex;
+    margin-left: 24/@r;
+    padding-right: 24/@r;
+    width: 700/@r;
+    position: relative;
+    height: 100/@r;
+}
+.container + .container{
+    border-top: 1px solid #e5e5e5;
+}
+
+.logo{
+    width: 100/@r;
+    height: 100/@r;
+    border-radius: 4/@r;
+}
+.content{
+    margin-left: 20/@r;
+    height: 100/@r;
+
+    .name{
+        font-size: 28/@r;
+        color: #4f4f4f;
+        font-weight: bold;
+    }
+    .author{
+        font-size: 28/@r;
+        color: #999999;
+        margin-top:20/@r;
+        font-weight: 500;
+    }
+}
+
+.collection{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 80/@r;
+    height: 80/@r;
+    margin: auto;
+    right: 24/@r;
+    display: flex;
+    .collection_icon{
+        width: 40/@r;
+        height: 40/@r;
+        margin: auto;
+    }
+}
