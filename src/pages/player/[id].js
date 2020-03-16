@@ -5,13 +5,26 @@ import forwardIcon from "../../images/forward.png";
 import playIcon from "../../images/play.png";
 import pauseIcon from "../../images/pause.png";
 import backIcon from "../../images/back.png";
+import historyIcon from "../../images/history.png";
 import styles from './index.less';
 import { formatTime } from "../../utils/utils"
+import HistoryLog from "../../components/HistoryLog"
 
 class Player extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      visible: false
+    }
+  }
   async componentDidMount(){
     // 获取音乐
-    const { match: { params: { id }}, music: { fetchDetail, detail: { audioUrl, id: musicId } }, player: { play, setSrc }} = this.props;
+    const { 
+      match: { params: { id }}, 
+      music: { fetchDetail, detail: { audioUrl, id: musicId } }, 
+      player: { play, setSrc },
+      user: { addLog }
+    } = this.props;
     // 如果是同一首音乐，则直接返回，不需要处理
     if(audioUrl){
       setSrc(audioUrl);
@@ -23,6 +36,8 @@ class Player extends Component {
       setSrc(url);
     }
     console.log("音乐设置完毕!");
+    // 添加历史记录
+    addLog(this.props.music.detail);
     this.moveDot();
   }
   componentDidUpdate(){
@@ -96,6 +111,9 @@ class Player extends Component {
         </div>
       </div>
       <div className={styles["operator"]}>
+        <div>
+          
+        </div>
         <div className={styles["operator-item"] + " " + styles["back"]}>
           <img src={backIcon} alt="" />
         </div>
@@ -105,7 +123,15 @@ class Player extends Component {
         <div className={styles["operator-item"] + " " + styles["forward"]}>
           <img src={forwardIcon} alt="" />
         </div>
+        <div onClick={() => this.setState({visible: true})} className={styles["operator-item"]}>
+          <img src={historyIcon} />
+        </div>
       </div>
+      
+      <HistoryLog 
+        onCancel={() => this.setState({visible: false})} 
+        visible={this.state.visible} 
+      />
     </div>
     )
   }
@@ -113,5 +139,6 @@ class Player extends Component {
 
 export default inject(store => ({
   music: store.music,     // 音乐对象
-  player: store.player    // 播放器对象
+  player: store.player,    // 播放器对象
+  user: store.user
 }))(observer(Player));

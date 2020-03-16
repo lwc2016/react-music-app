@@ -11,6 +11,7 @@ class Player{
     @observable currentTime = 0;     // 当前位置
 
     @action.bound setSrc(src){
+        // 初始化audio
         this.initialAudio(src);
     }
     // 播放与暂停

@@ -1,11 +1,34 @@
 import { observable, autorun, action } from "mobx";
 import { getUserDetail } from "../api/user";
 class User{
+    constructor(){
+        // 获取历史记录
+        this.getLogs();
+    }
     @observable data = {};
 
     // 获取用户详情
     @action async fetch(){
         this.data = await getUserDetail();
+    }
+
+    // 获取用户历史记录
+    getLogs = () => {
+        let logs = localStorage.getItem("logs");
+        try{
+            this.logs = logs ? JSON.parse(logs) : [];
+        }catch(error){
+            this.logs = [];
+        } 
+    }
+
+    // 添加历史记录
+    @action.bound addLog(detail){
+        // 判断是否存在历史记录中
+        if(!this.logs.find(item => item.id == detail.id)){
+            this.logs.push(detail);
+            localStorage.setItem("logs", JSON.stringify(this.logs));
+        }
     }
 }
 
