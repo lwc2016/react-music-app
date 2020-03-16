@@ -15,9 +15,12 @@ class Music{
 
     // 获取音乐详情
     @action.bound async fetchDetail(id){
-        const result = this.list.find(item => item.id === id);
-        if(result) return this.detail = result;
         this.detail = await getMusicDetail({id});
+    }
+
+    // 设置详情
+    @action.bound setDetail(detail){
+        this.detail = detail;
     }
 }
 

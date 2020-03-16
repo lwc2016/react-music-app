@@ -10,11 +10,16 @@ import { formatTime } from "../../utils/utils"
 class Player extends Component {
   async componentDidMount(){
     // 获取音乐
-    const { match: { params: { id }}, music: { fetchDetail } } = this.props;
-    await fetchDetail(id);
-    const { music: { detail: { audioUrl }}, player: { setSrc }} = this.props;
-    setSrc(audioUrl);
-
+    const { match: { params: { id }}, music: { fetchDetail, detail: { audioUrl } }, player: { play, setSrc }} = this.props;
+    if(audioUrl){
+      setSrc(audioUrl);
+      play();
+    }else{
+      // 判断是否有音乐
+      await fetchDetail(id)
+      const { music: { detail: { audioUrl: url } } } = this.props;
+      setSrc(url);
+    }
     this.moveDot();
   }
   componentDidUpdate(){
@@ -24,19 +29,47 @@ class Player extends Component {
     this.refs["progress-dot"].style.left =`calc(${percent} - ${clientWidth / 2}px)`;
     this.refs["progress-line"].style.width = percent;
   }
-  moveDot(){
-    $dot = this.refs["progress-dot"];
+  moveDot = () => {
 
-    
-    $dot.addEventListener("touchstart", () => {
+    this.$dot = this.refs["progress-dot"];
+    this.$line = this.refs["progress-line"];
+    this.clientWidth = this.$dot.clientWidth;
+    this.progressWidth = this.refs["progress-line"].clientWidth;
+    this.startX = 0;
+    this.startLeft = 0;
+    this.endLeft = 0;
 
-    });
-    $dot.addEventListener("touchmove", () => {
-
-    });
-    $dot.addEventListener("touchup", () => {
-
-    });
+    this.$dot.addEventListener("touchstart", this.touchStart);
+    this.$dot.addEventListener("touchmove", this.touchmove);
+    this.$dot.addEventListener("touchend", this.touchend);
+  }
+  touchStart = (event) => {
+    const { clientX } = event.changedTouches[0];
+    this.startX = clientX;
+    this.startLeft = this.$dot.offsetLeft;
+  }
+  touchmove = (event) => {
+    const clientX = event.changedTouches[0].clientX;
+    const distance = clientX - this.startX;
+    const left = distance + this.startLeft;
+    if(left >= - (this.clientWidth / 2) && left <= this.progressWidth - this.clientWidth / 2){
+      this.$dot.style.left = left + "px";
+      this.$line.style.width = left + "px";
+      this.endLeft = left;
+    }
+  }
+  touchend = () => {
+    const { player : { duration, setCurrentTime }} = this.props;
+    const left = Math.round(this.endLeft);
+    const percent = (left + this.clientWidth / 2) / this.progressWidth;
+    const currentTime = duration * percent;
+    setCurrentTime(currentTime);
+  }
+  componentWillUnmount(){
+    console.log("组件卸载了");
+    this.$dot.removeEventListener("touchstart", this.touchStart);
+    this.$dot.removeEventListener("touchmove", this.touchmove);
+    this.$dot.removeEventListener("touchend", this.touchend);
   }
   render() {
     const { music: { detail }, player: { play, isPlaying, duration, currentTime } } = this.props;

@@ -1,20 +1,38 @@
 import { observable, action } from "mobx";
 
 class Player{
-    @observable $audio = null;
+    constructor(){
+        this.$audio = new Audio();
+        this.bindEvent();
+    }
     @observable isPlaying = false;   // 是否正在播放：true表示正在播放，false表示暂停播放;
     @observable isReady = false;     // 音乐是否正在加载
     @observable duration = 0;        // 音乐总时长
     @observable currentTime = 0;     // 当前位置
 
     @action.bound setSrc(src){
-        this.createAudio(src);
-        this.bindEvent();
+        this.initialAudio(src);
     }
-    createAudio(src){
-        this.$audio = new Audio();
+    // 播放与暂停
+    @action.bound play(){
+        // 音乐加载完毕后才能进行播放
+        if(this.isReady) return null;
+        if(this.isPlaying){
+            this.$audio.pause();
+        }else{
+            this.$audio.play();
+        }
+        this.isPlaying = !this.isPlaying;
+    }
+    // 设置当前播放的时间
+    @action.bound setCurrentTime(currentTime){
+        this.$audio.currentTime = currentTime;
+    }
+    initialAudio(src){
         this.$audio.src = src;
         this.$audio.load();
+        this.isPlaying = false;
+        this.isReady = false;
     }
     bindEvent(){
         this.$audio.addEventListener("loadstart", () => {
@@ -44,17 +62,7 @@ class Player{
             console.log(this.duration);
         })
     }
-    @action.bound play(){
-        // 音乐加载完毕后才能进行播放
-        if(this.isReady) return null;
-        console.log("ok");
-        if(this.isPlaying){
-            this.$audio.pause();
-        }else{
-            this.$audio.play();
-        }
-        this.isPlaying = !this.isPlaying;
-    }
+    
 }
 
 const player = new Player();

@@ -42,13 +42,6 @@ export default [
         imgUrl: "http://img2.kuwo.cn/star/albumcover/300/95/85/1310067663.jpg"
     },
     {
-        id: 7,
-        name: "光辉岁月",
-        singer: "Beyond",
-        auiodUrl: "https://react-music-app.oss-cn-beijing.aliyuncs.com/3048289299.mp3",
-        imgUrl: "http://img1.kuwo.cn/star/albumcover/300/1/92/3326565661.jpg"
-    },
-    {
         id: 8,
         name: "情人",
         singer: "Beyond",
@@ -61,12 +54,5 @@ export default [
         singer: "陈慧娴",
         audioUrl: "https://react-music-app.oss-cn-beijing.aliyuncs.com/1422563628.mp3",
         imgUrl: "http://img4.kuwo.cn/star/albumcover/300/84/2/616555548.jpg"
-    },
-    {
-        id: 10,
-        name: '体面',
-        singer: "于文文",
-        audiourl: "https://react-music-app.oss-cn-beijing.aliyuncs.com/2322969163.mp3",
-        imgUrl: "http://img1.kuwo.cn/star/albumcover/300/1/11/2397455203.jpg"
     }
 ]
