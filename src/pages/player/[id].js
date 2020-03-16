@@ -11,7 +11,8 @@ import { formatTime } from "../../utils/utils"
 class Player extends Component {
   async componentDidMount(){
     // 获取音乐
-    const { match: { params: { id }}, music: { fetchDetail, detail: { audioUrl } }, player: { play, setSrc }} = this.props;
+    const { match: { params: { id }}, music: { fetchDetail, detail: { audioUrl, id: musicId } }, player: { play, setSrc }} = this.props;
+    // 如果是同一首音乐，则直接返回，不需要处理
     if(audioUrl){
       setSrc(audioUrl);
       play();
@@ -21,6 +22,7 @@ class Player extends Component {
       const { music: { detail: { audioUrl: url } } } = this.props;
       setSrc(url);
     }
+    console.log("音乐设置完毕!");
     this.moveDot();
   }
   componentDidUpdate(){

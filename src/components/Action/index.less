@@ -1,0 +1,40 @@
+.container{
+    width: 120/@r;
+    height: 100/@r;
+    position: fixed;
+    right: -70/@r;
+    top: 50%;
+    margin-top: -200/@r;
+    border-top-left-radius: 50/@r;
+    border-bottom-left-radius: 50/@r;
+    border: 1px solid #d5d5d5;
+    display: flex;
+    align-items: center;
+    z-index: 100;
+    background-color: #003333;
+    transition: all ease-in 200ms;
+    .avatar{
+        width: 80/@r;
+        height: 80/@r;
+        border-radius: 100%;
+        margin-left: 10/@r;
+        background-color: #ffffff;
+        animation: rotate linear 9s infinite;
+        animation-play-state: paused;
+    }
+    .running{
+        animation-play-state: running;
+    }
+}
+.active{
+    right: 0;
+}
+
+@keyframes rotate{
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
