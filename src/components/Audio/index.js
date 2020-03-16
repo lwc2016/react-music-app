@@ -10,21 +10,30 @@ class Audio extends Component {
     }
     getAudio(){
         if(this.props.detail.id){
-            console.log("ok");
-            this.audio = this.refs["audio"];
-            // this.audio.load();
-            this.audio.play();
+            const $audio = document.getElementById("audio");
+            
+            // const $audio = this.refs["audio"];
+            $audio.addEventListener("loadstart", function(){
+                console.log("开始请求中");
+            })
+            $audio.addEventListener("progress", function(){
+                console.log("请求中");
+            })
+            $audio.addEventListener("timeupdate", function(){
+                console.log("播放时间改变");
+            })
+            $audio.addEventListener("ended", function(){
+                console.log("播放结束");
+            })
+            $audio.addEventListener("canplaythrough", function(){
+                console.log("加载完毕了");
+                $audio.play();
+            })
         }
     }
     render() {
         const { detail: { id, audioUrl } } = this.props;
-        console.log(id);
-        console.log(audioUrl);
-        return (
-            <audio ref="audio">
-                <source src={audioUrl} />
-            </audio>
-        )
+        return null
     }
 }
 
