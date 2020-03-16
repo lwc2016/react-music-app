@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import classname from "classname";
 import { inject, observer} from "mobx-react";
 import forwardIcon from "../../images/forward.png";
 import playIcon from "../../images/play.png";
@@ -77,8 +78,11 @@ class Player extends Component {
       <div className={styles["container"]}>
       <p className={styles["title"]}>{detail.name}</p>
       <p className={styles["singer"]}>{detail.singer}</p>
-      <div className={styles["audio-img"]}>
-        <img src={detail.imgUrl} />
+      <div className={classname({
+        [styles["audio-img"]]: true,
+        [styles["audio-img-active"]]: isPlaying
+      })}>
+        <img src={detail.imgUrl}  />
       </div>
       <div className={styles["progress"]}>
         <div className={styles["line"]}></div>
