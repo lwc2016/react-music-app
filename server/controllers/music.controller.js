@@ -22,9 +22,5 @@ exports.query = async (ctx, next) => {
     }else {
         list = await db.query("select * from musics_table limit ?, ?", [start, end]);
     }
-    ctx.body = {
-        status: 200,
-        result: list,
-        errorMsg: ""
-    }
+    ctx.body = { status: 200, data: list, message: "" }
 };

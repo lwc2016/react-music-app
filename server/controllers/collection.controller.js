@@ -11,9 +11,9 @@ exports.add = async (ctx, next) => {
     }
     try{
         await db.query("insert into collections_table (user_id, music_id) values (?, ?)", [id, musicId]);
-        ctx.body = {code: 200, result: ""}
+        ctx.body = {code: 200, data: ""}
     }catch(error){
-        ctx.body = {code: 500, result: "数据库错误"};
+        ctx.body = {code: 500, message: "数据库错误"};
     }
 };
 
@@ -24,9 +24,9 @@ exports.delete = async (ctx, next) => {
     try{
         await db.query("update collections_table set isValid = 0 where id = ? and user_id = ?", [collectionId, userId]);
         console.log("ok");
-        ctx.body = { status: 200, result: "" }
+        ctx.body = { status: 200, data: "" }
     }catch(err){
-        ctx.body = { status: 500, errorMsg: "数据库错误"};
+        ctx.body = { status: 500, message: "数据库错误"};
     }
     
 };
@@ -47,8 +47,5 @@ exports.list = async (ctx, next) => {
         musics_table.createdTime
         from musics_table
         left join collections_table on musics_table.id = collections_table.music_id where user_id = ? and collections_table.isValid = 1 order by id limit ?, ?;`, [id, start, end]);
-    ctx.body = {
-        status: 200,
-        result: list
-    }
+    ctx.body = { status: 200, data: list }
 }

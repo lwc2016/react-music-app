@@ -18,7 +18,7 @@ module.exports = (app) => {
         password: [{required: true, message: "请填写密码！"}]
     }), userController.register);
     router.post("/user/logout", userController.logout);
-    router.post("/user/detail", authMiddleware, userController.detail);
+    router.all("/user/detail", authMiddleware, userController.detail);
 
     // 歌曲相关
     router.get("/music/list", musicController.query);

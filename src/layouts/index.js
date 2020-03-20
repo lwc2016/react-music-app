@@ -34,13 +34,16 @@ const Layout = (props) => {
     )
 }
 
-
 export default (props) => {
     const [ isLoading, setLoading ] = useState(true);
     const { children } = props
     useEffect(() => {
         const initData = async () => {
-            await Promise.all([store.user.fetch(), store.music.fetch()]);
+            try{
+                await Promise.all([store.user.fetch(), store.music.fetch()]);
+            }catch(err){
+                console.log(err);
+            }
             setLoading(false);
         }
         initData();
