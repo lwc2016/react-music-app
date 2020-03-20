@@ -5,15 +5,25 @@
   "main": "index.js",
   "scripts": {
     "start": "umi dev",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "umi build",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "add-data": "node ./commander/index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.2",
     "classname": "0.0.0",
+    "co-mysql": "^1.0.0",
+    "koa": "^2.11.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-cookie": "^1.0.0",
+    "koa-router": "^8.0.8",
+    "koa-session": "^5.13.1",
     "mobx": "^5.15.4",
-    "mobx-react": "^6.1.8"
+    "mobx-react": "^6.1.8",
+    "mysql": "^2.18.1",
+    "standard-validator": "^2.2.1"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.8.3",
