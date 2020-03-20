@@ -24,7 +24,6 @@ const Logs =  ({ visible, onCancel, user, music, player }) => {
     const clearAll = () => {
         clearLog();
     }
-    console.log(logs);
     return (
         <div>
             <div onClick={onCancel} className={classname({
